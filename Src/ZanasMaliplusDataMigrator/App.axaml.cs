@@ -5,27 +5,26 @@ using OfficeOpenXml;
 using ZanasMaliplusDataMigrator.ViewModels;
 using ZanasMaliplusDataMigrator.Views;
 
-namespace ZanasMaliplusDataMigrator
+namespace ZanasMaliplusDataMigrator;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public override void Initialize()
     {
-        public override void Initialize()
-        {
-            AvaloniaXamlLoader.Load(this);
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-        }
+        AvaloniaXamlLoader.Load(this);
+        ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+    }
 
-        public override void OnFrameworkInitializationCompleted()
+    public override void OnFrameworkInitializationCompleted()
+    {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            desktop.MainWindow = new MainWindow
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
-            }
-
-            base.OnFrameworkInitializationCompleted();
+                DataContext = new MainWindowViewModel(),
+            };
         }
+
+        base.OnFrameworkInitializationCompleted();
     }
 }

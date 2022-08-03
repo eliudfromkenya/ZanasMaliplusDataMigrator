@@ -5,20 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZanasMigratorTest
+namespace ZanasMigratorTest;
+
+[TestFixture]
+public class MsExcelReportTests
 {
-    [TestFixture]
-    public class MsExcelReportTests
+    [Test]
+    public void Check_If_report_Generation_is_Completed()
     {
-        [Test]
-        public void Check_If_report_Generation_is_Completed()
-        {
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            MsExcelReportService service = new();
+        ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+        MsExcelReportService service = new();
 
-            var path = service.GenerateReport(TestData.ZanasColumns().ToArray(), TestData.MaliplusColumns().ToArray(), Array.Empty<DBRelationship>());
+        var path = service.GenerateReport(TestData.ZanasColumns().ToArray(), TestData.MaliplusColumns().ToArray(), Array.Empty<DBRelationship>());
 
-            Assert.IsNotEmpty(path);
-        }
+        Assert.IsNotEmpty(path);
     }
 }

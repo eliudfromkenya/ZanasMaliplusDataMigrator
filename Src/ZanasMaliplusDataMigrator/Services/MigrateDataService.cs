@@ -1,6 +1,5 @@
-﻿namespace ZanasMaliplusDataMigrator.Services
+﻿namespace ZanasMaliplusDataMigrator.Services;
+
+public class MigrateDataService
 {
-    public class MigrateDataService
-    {
-    }
 }

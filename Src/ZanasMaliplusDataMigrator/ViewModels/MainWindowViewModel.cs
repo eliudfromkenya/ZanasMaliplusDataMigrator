@@ -19,6 +19,71 @@ namespace ZanasMaliplusDataMigrator.ViewModels
         {
             GenerateMigrationReportCommand = ReactiveCommand.CreateFromTask(GenerateMigrationReport);
             CloseCommand = ReactiveCommand.CreateFromTask<object>(tt => CloseSystem(tt));
+            MigrateDataCommand = ReactiveCommand.CreateFromTask<object>(tt => MigrateData(tt));
+            MoveToMySQLCommand = ReactiveCommand.CreateFromTask<object>(tt => MoveToMySQL(tt));
+            CheckTablesCommand = ReactiveCommand.CreateFromTask<object>(tt => CheckTables(tt));
+            TestZanasConnectionCommand = ReactiveCommand.CreateFromTask<object>(tt => TestZanasConnection(tt));
+            TestMaliplusConnectionCommand = ReactiveCommand.CreateFromTask<object>(tt => TestMaliplusConnection(tt));
+        }
+
+        private async Task TestMaliplusConnection(object tt)
+        {
+            try 
+            { 
+
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
+
+        private async Task TestZanasConnection(object tt)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
+
+        private async Task CheckTables(object tt)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
+
+        private async Task MoveToMySQL(object tt)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
+
+        private async Task MigrateData(object tt)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
         }
 
         private async Task CloseSystem(object form)

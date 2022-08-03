@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZanasMigratorTest
+namespace ZanasMigratorTest;
+
+[TestFixture]
+public class MySQLDBServiceTests
 {
-    [TestFixture]
-    public class MySQLDBServiceTests
+    [Test]
+    public void Check_If_report_Generation_is_Completed()
     {
-        [Test]
-        public void Check_If_report_Generation_is_Completed()
-        {
-            CreateMySQLService service = new();
+        CreateMySQLService service = new();
 
-            var path = service.CreateMySQLDatabase(TestData.ZanasColumns().ToArray(), TestData.MaliplusColumns().ToArray(), Array.Empty<DBRelationship>());
+        var path = service.CreateMySQLDatabase(TestData.ZanasColumns().ToArray(), TestData.MaliplusColumns().ToArray(), Array.Empty<DBRelationship>());
 
-            Assert.IsNotEmpty(path);
-        }
+        Assert.IsNotEmpty(path);
     }
 }
