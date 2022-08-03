@@ -93,7 +93,7 @@ namespace ZanasMaliplusDataMigrator.Services
                 range.Style.Font.UnderLine = true;
                 range.Style.Font.Size = 14;
                 range.Merge = true;
-                range.Value = "Zanas Table";
+                range.Value = "Corresponding Zanas Tables";
                 currentRow++;
 
 
