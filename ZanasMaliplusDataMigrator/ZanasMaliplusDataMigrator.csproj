@@ -6,10 +6,14 @@
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <StartupObject>ZanasMaliplusDataMigrator.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaXaml Remove="Classes\**" />
+    <Compile Remove="Classes\**" />
+    <EmbeddedResource Remove="Classes\**" />
+    <None Remove="Classes\**" />
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
