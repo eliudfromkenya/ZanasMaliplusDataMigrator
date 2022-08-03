@@ -1,17 +1,13 @@
 ﻿using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZanasMaliplusDataMigrator.Services
 {
     public class MsExcelReportService
     {
-        int currentRow = 3;
+        private int currentRow = 3;
+
         public string GenerateReport(DbColumnModel[] zanasColumns, DbColumnModel[] maliplusColumns, DBRelationship[] relationships)
         {
             var (pairs, unMatchedZanasColumns) = new MatchingService().GenerateMatchColumns(zanasColumns, maliplusColumns);
@@ -39,7 +35,6 @@ namespace ZanasMaliplusDataMigrator.Services
             excelPackage.SaveAs(new FileInfo(file));
             return file;
         }
-
 
         private void AddMatchedColumns(MatchingService.ColumnPair?[] pairs, DbColumnModel?[] unMatchedZanasColumns, ExcelPackage excelPackage)
         {
@@ -96,7 +91,6 @@ namespace ZanasMaliplusDataMigrator.Services
                 range.Value = "Corresponding Zanas Tables";
                 currentRow++;
 
-
                 sheet.Cells[currentRow, 1].Value = "Column Name";
                 sheet.Cells[currentRow, 2].Value = "Is Primary Key";
                 sheet.Cells[currentRow, 3].Value = "Data Type";
@@ -109,8 +103,6 @@ namespace ZanasMaliplusDataMigrator.Services
                 sheet.Cells[currentRow, 4, currentRow, 7].Style.Font.Color.SetColor(Color.RebeccaPurple);
                 sheet.Cells[currentRow, 1, currentRow, 7].Style.Font.UnderLine = true;
                 currentRow++;
-
-
 
                 var tables = x.Columns.Select(v => v?.ZanasColumn?.TableName)
                     .Where(n => !string.IsNullOrWhiteSpace(n))
@@ -140,7 +132,7 @@ namespace ZanasMaliplusDataMigrator.Services
                     sheet.Cells[currentRow, 2].Value = (col?.MaliplusColumn?.IsIdentity ?? false) ? "Yes" : "No";
                     sheet.Cells[currentRow, 3].Value = col?.MaliplusColumn?.DataType;
 
-                    if(col?.ZanasColumn != null)
+                    if (col?.ZanasColumn != null)
                     {
                         sheet.Cells[currentRow, 4].Value = col?.ZanasColumn?.TableName;
                         sheet.Cells[currentRow, 5].Value = col?.ZanasColumn?.ColumnName;
@@ -178,17 +170,16 @@ namespace ZanasMaliplusDataMigrator.Services
                 {
                     currentRow += 2;
                     foreach (var col in nb)
-                     {
-                         sheet.Cells[currentRow, 4].Value = col?.TableName;
-                         sheet.Cells[currentRow, 5].Value = col?.ColumnName;
-                         sheet.Cells[currentRow, 6].Value = (col?.IsIdentity ?? false) ? "Yes" : "No";
-                         sheet.Cells[currentRow, 7].Value = col?.DataType;
-                         sheet.Cells[currentRow, 4].Style.Font.Bold = true;
-                         currentRow++;
-                     }
-                 });
+                    {
+                        sheet.Cells[currentRow, 4].Value = col?.TableName;
+                        sheet.Cells[currentRow, 5].Value = col?.ColumnName;
+                        sheet.Cells[currentRow, 6].Value = (col?.IsIdentity ?? false) ? "Yes" : "No";
+                        sheet.Cells[currentRow, 7].Value = col?.DataType;
+                        sheet.Cells[currentRow, 4].Style.Font.Bold = true;
+                        currentRow++;
+                    }
+                });
         }
-
 
         private void AddZanasColumns(MatchingService.ColumnPair?[] pairs, DbColumnModel?[] unMatchedZanasColumns, ExcelPackage excelPackage)
         {
@@ -325,7 +316,6 @@ namespace ZanasMaliplusDataMigrator.Services
                 });
                 currentRow += 2;
             });
-
         }
     }
 }

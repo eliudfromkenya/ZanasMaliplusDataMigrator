@@ -1,8 +1,9 @@
 ﻿namespace ZanasMaliplusDataMigrator.Services;
+
 public class MatchingService
 {
-    public record ColumnPair 
-    { 
+    public record ColumnPair
+    {
         public DbColumnModel? ZanasColumn { get; set; }
         public DbColumnModel? MaliplusColumn { get; set; }
     }
@@ -21,7 +22,6 @@ public class MatchingService
             .ToArray());
     }
 
-
     public void ComparerTableNameDifferentWithSomeSameColumns(ref List<ColumnPair> columnPairs, DbColumnModel[] zanasModels)
     {
         //Try to match some columns (same names) and table names different - Renamed zanas table with added or removed columns to Maliplus
@@ -29,11 +29,12 @@ public class MatchingService
         var zanasGroupedColumns = zanasModels
             .GroupBy(c => c.TableName)
             .Select(c =>
-             new {
-                     Table = c.Key,
-                     Models = c.ToArray(),
-                     Columns = c.Select(v => v.ColumnName?.Replace(" ", "")).ToArray()
-                 });
+             new
+             {
+                 Table = c.Key,
+                 Models = c.ToArray(),
+                 Columns = c.Select(v => v.ColumnName?.Replace(" ", "")).ToArray()
+             });
 
         var intersects = columnPairs
                .Where(c => c.ZanasColumn == null)
@@ -79,7 +80,6 @@ public class MatchingService
         });
     }
 
-
     public void ComparerByTableNameSameWithSomeSameColumnNames(ref List<ColumnPair> columnPairs, DbColumnModel[] zanasModels)
     {
         //Try to match columns where table names and columns are same
@@ -115,7 +115,6 @@ public class MatchingService
                 });
     }
 
-
     public void ComparerTableNameDifferentWithSameColumns(ref List<ColumnPair> columnPairs, DbColumnModel[] zanasModels)
     {
         //Try to match all columns match (same) and table names different- Renamed zanus to Maliplus table name
@@ -123,7 +122,8 @@ public class MatchingService
         var zanasGroupedColumns = zanasModels
             .GroupBy(c => c.TableName)
             .Select(c =>
-             new {
+             new
+             {
                  Table = c.Key,
                  Models = c.ToArray(),
                  Columns = c.Select(v => v.ColumnName?.Replace(" ", "")).ToArray()
@@ -159,7 +159,6 @@ public class MatchingService
                     catch { }
                 });
     }
-
 
     public void ComparerByTableNameAndSameColumns(ref List<ColumnPair> columnPairs, DbColumnModel[] zanasModels)
     {

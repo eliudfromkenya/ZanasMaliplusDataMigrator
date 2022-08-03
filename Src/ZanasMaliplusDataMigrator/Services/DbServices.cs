@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ReactiveUI;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ReactiveUI;
-using ZanasMaliplusDataMigrator.Models;
 
 namespace ZanasMaliplusDataMigrator.Services
 {
-    public class DbServices:ReactiveObject
+    public class DbServices : ReactiveObject
     {
         public async Task<List<DbColumnModel>> GetColumns(Func<IBM.Data.DB2.Core.DB2Connection> getCon, string schema)
         {
@@ -26,7 +20,7 @@ namespace ZanasMaliplusDataMigrator.Services
        tabschema,
        scale,
        default,
-       remarks as description, 
+       remarks as description,
        case when nulls='Y' then 1 else 0 end as nullable,
        case when identity ='Y' then 1 else 0 end as is_identity,
        case when generated ='' then 0 else 1 end as  is_computed,
@@ -63,7 +57,6 @@ order by tabname,colno;
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }

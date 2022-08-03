@@ -1,25 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using ReactiveUI;
-using ZanasMaliplusDataMigrator.Models;
-using ZanasMaliplusDataMigrator.Services;
+using System.Threading;
+using System.Windows.Input;
 using ZanasMaliplusDataMigrator.Views;
 
 namespace ZanasMaliplusDataMigrator.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public ICommand CloseCommand { get; } 
-        public ICommand MigrateDataCommand { get; } 
-        public ICommand MoveToMySQLCommand { get; } 
-        public ICommand GenerateMigrationReportCommand { get; } 
-        public ICommand CheckTablesCommand { get; } 
-        public ICommand TestZanasConnectionCommand { get; } 
-        public ICommand TestMaliplusConnectionCommand { get; } 
+        public ICommand CloseCommand { get; }
+        public ICommand MigrateDataCommand { get; }
+        public ICommand MoveToMySQLCommand { get; }
+        public ICommand GenerateMigrationReportCommand { get; }
+        public ICommand CheckTablesCommand { get; }
+        public ICommand TestZanasConnectionCommand { get; }
+        public ICommand TestMaliplusConnectionCommand { get; }
 
         public MainWindowViewModel()
         {
@@ -63,7 +57,6 @@ namespace ZanasMaliplusDataMigrator.ViewModels
 
         private void ShowError(Exception ex)
         {
-           
         }
     }
 }

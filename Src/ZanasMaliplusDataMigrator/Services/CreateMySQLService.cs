@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZanasMaliplusDataMigrator.Services
+﻿namespace ZanasMaliplusDataMigrator.Services
 {
     public class CreateMySQLService
     {
@@ -51,7 +45,7 @@ CREATE TABLE `{v.Table}`  (
                 v.Columns.ForEach(col =>
                 {
                     var type = col?.MaliplusColumn?.DataType;
-                    if(col?.MaliplusColumn ?.Length> 0)
+                    if (col?.MaliplusColumn?.Length > 0)
                     {
                         if (col?.MaliplusColumn?.Scale > 0)
                             type = $"{type}({col?.MaliplusColumn?.Length},{col?.MaliplusColumn?.Scale})";
