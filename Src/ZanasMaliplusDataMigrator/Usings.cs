@@ -1,6 +1,3 @@
-global using NUnit;
-global using NUnit.Framework;
-global using NUnit.Compatibility;
 global using ZanasMaliplusDataMigrator.Models;
 global using ZanasMaliplusDataMigrator.Services;
 global using System;
