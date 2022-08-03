@@ -18,13 +18,22 @@
 			<Setter Property="Opacity" Value=".6" />
 			<Setter Property="Padding" Value="10,0,0,0" />
 		</Style>
+		<Style Selector="TextBlock.title">
+			<Setter Property="Foreground" Value="LightBlue" />
+			<Setter Property="Opacity" Value=".8" />
+		</Style>
+		<Style Selector="Button.general">
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="Background" Value="Black" />
+			<Setter Property="Opacity" Value=".7" />
+		</Style>
 		<Style Selector="AutoCompleteBox">
 			<Setter Property="Foreground" Value="LightBlue" />
 		</Style>
 	</Window.Styles>
 
 	<Grid ColumnDefinitions="*,10,*" RowDefinitions="Auto, *, Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-		<TextBlock Classes="caption" FontWeight="Bold" Grid.ColumnSpan="3" Text="{Binding Greeting}" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center" />
+		<TextBlock Classes="caption title" FontWeight="Bold" Grid.ColumnSpan="3" Text="{Binding Greeting}" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
 		<Grid Grid.Row="1" ColumnDefinitions="Auto, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
 			<Border Margin="5,5,5,-5" BorderBrush="LightBlue" Opacity=".5" BorderThickness="3" CornerRadius="10" Grid.ColumnSpan="100" Grid.RowSpan="10"/>
@@ -43,7 +52,7 @@
 			<TextBlock Classes="caption" VerticalAlignment="Top" Margin="10,3" Text="Schema" Grid.Column="0" Grid.Row="6" />
 			<AutoCompleteBox VerticalAlignment="Top" Grid.Column="1" Grid.Row="6" Margin="10,3"  Text="{Binding ZanasDbModel.Schema}" />
 
-			<Button Grid.Row="7" Command="{Binding TestZanasConnectionCommand}" Grid.Column="1" Content="Test Connection" />
+			<Button Classes="general"  Grid.Row="7" Command="{Binding TestZanasConnectionCommand}" Grid.Column="1" Content="Test Connection" />
 		</Grid>
 
 
@@ -64,20 +73,20 @@
 			<TextBlock Classes="caption" VerticalAlignment="Top" Margin="10,3" Text="Schema" Grid.Column="0" Grid.Row="6" />
 			<AutoCompleteBox VerticalAlignment="Top" Grid.Column="1" Grid.Row="6" Margin="10,3"  Text="{Binding MaliplusDbModel.Schema}" />
 
-			<Button Grid.Row="7" Command="{Binding TestMaliplusConnectionCommand}" Grid.Column="1" Content="Test Connection" />
+			<Button Classes="general"  Grid.Row="7" Command="{Binding TestMaliplusConnectionCommand}" Grid.Column="1" Content="Test Connection" />
 		</Grid>
 
-		<Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ColumnDefinitions="*,*,*,*,*"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+		<Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto"  HorizontalAlignment="Center" VerticalAlignment="Stretch" >
 			<Border Margin="5" BorderBrush="LightBlue" Opacity=".5" BorderThickness="3" CornerRadius="10" Grid.ColumnSpan="100" Grid.RowSpan="10"/>
-			<Button Margin="15"  Grid.Row="7" Command="{Binding CheckTablesCommand}" Grid.Column="0" Content="Check Tables" />
+			<Button Margin="15"  Grid.Row="7" Classes="general" Command="{Binding CheckTablesCommand}" Grid.Column="0" Content="Check Tables" />
 
-			<Button Margin="15"  Grid.Row="7" Command="{Binding GenerateMigrationReportCommand}" Grid.Column="1"  Content="Generate Migration Report" />
+			<Button Margin="15" Classes="general"  Grid.Row="7" Command="{Binding GenerateMigrationReportCommand}" Grid.Column="1"  Content="Generate Migration Report" />
 
-			<Button Margin="15"  Grid.Row="7" Command="{Binding MoveToMySQLCommand}" Grid.Column="2" Content="Move To MySQL" />
+			<Button Margin="15"  Grid.Row="7" Classes="general" Command="{Binding MoveToMySQLCommand}" Grid.Column="2" Content="Move To MySQL" />
 
-			<Button Margin="15"  Grid.Row="7" Command="{Binding MigrateDataCommand}" Grid.Column="3" Content="Migrate Data" />
+			<Button Margin="15"  Grid.Row="7" Classes="general" Command="{Binding MigrateDataCommand}" Grid.Column="3" Content="Migrate Data" />
 
-			<Button Margin="15" CommandParameter="{Binding #MainPage}" Grid.Row="7" Command="{Binding CloseCommand}" Grid.Column="4" Content="Close" />
+			<Button Margin="15" Classes="general" CommandParameter="{Binding #MainPage}" Grid.Row="7" Command="{Binding CloseCommand}" Grid.Column="4" Content="Close" />
 		</Grid>
 	</Grid>
 

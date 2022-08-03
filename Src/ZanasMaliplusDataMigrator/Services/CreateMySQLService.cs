@@ -8,5 +8,6 @@ namespace ZanasMaliplusDataMigrator.Services
 {
     public class CreateMySQLService
     {
+
     }
 }

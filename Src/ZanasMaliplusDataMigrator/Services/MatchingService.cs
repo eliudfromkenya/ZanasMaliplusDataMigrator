@@ -12,7 +12,7 @@ public class MatchingService
         var columnPairs = maliplusColumnModels.Select(c => new ColumnPair { MaliplusColumn = c }).ToList();
         ComparerByTableNameAndSameColumns(ref columnPairs, zanasColumnModels);
         ComparerTableNameDifferentWithSameColumns(ref columnPairs, zanasColumnModels);
-        ComparerByTableNameWithSomeSameColumnNames(ref columnPairs, zanasColumnModels);
+        ComparerByTableNameSameWithSomeSameColumnNames(ref columnPairs, zanasColumnModels);
         ComparerTableNameDifferentWithSomeSameColumns(ref columnPairs, zanasColumnModels);
 
         return (columnPairs.ToArray(), zanasColumnModels
@@ -80,7 +80,7 @@ public class MatchingService
     }
 
 
-    public void ComparerByTableNameWithSomeSameColumnNames(ref List<ColumnPair> columnPairs, DbColumnModel[] zanasModels)
+    public void ComparerByTableNameSameWithSomeSameColumnNames(ref List<ColumnPair> columnPairs, DbColumnModel[] zanasModels)
     {
         //Try to match columns where table names and columns are same
         columnPairs
