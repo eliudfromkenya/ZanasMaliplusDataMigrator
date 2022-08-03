@@ -1,6 +1,8 @@
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using OfficeOpenXml;
 using ZanasMaliplusDataMigrator.ViewModels;
 using ZanasMaliplusDataMigrator.Views;
 
@@ -11,6 +13,7 @@ namespace ZanasMaliplusDataMigrator
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
         }
 
         public override void OnFrameworkInitializationCompleted()

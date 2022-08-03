@@ -8,5 +8,10 @@
 
     <Application.Styles>
         <FluentTheme Mode="Light"/>
+		<StyleInclude Source="avares://Citrus.Avalonia/Citrus.xaml"/>
+	    <StyleInclude Source="avares://Citrus.Avalonia/Sea.xaml"/> 
+        <!-- <StyleInclude Source="avares://Citrus.Avalonia/Rust.xaml"/> -->
+        <!-- <StyleInclude Source="avares://Citrus.Avalonia/Candy.xaml"/> -->
+        <!-- <StyleInclude Source="avares://Citrus.Avalonia/Magma.xaml"/> -->
     </Application.Styles>
 </Application>
