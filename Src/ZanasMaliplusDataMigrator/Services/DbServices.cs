@@ -5,7 +5,11 @@ namespace ZanasMaliplusDataMigrator.Services;
 
 public class DbServices : ReactiveObject
 {
-    public async Task<List<DbColumnModel>> GetColumns(Func<IBM.Data.DB2.Core.DB2Connection> getCon, string schema)
+    public async Task<List<DBRelationship>> GetRelationship(Func<IBM.Data.DB2.Core.DB2Connection> getCon, string? schema)
+    {
+        return null;
+    }
+    public async Task<List<DbColumnModel>> GetColumns(Func<IBM.Data.DB2.Core.DB2Connection> getCon, string? schema)
     {
         try
         {

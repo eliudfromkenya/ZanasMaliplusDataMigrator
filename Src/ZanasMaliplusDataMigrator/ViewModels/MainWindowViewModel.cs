@@ -9,19 +9,19 @@ namespace ZanasMaliplusDataMigrator.ViewModels
     {
         public ICommand CloseCommand { get; }
         public ICommand MigrateDataCommand { get; }
-        public ICommand MoveToMySQLCommand { get; }
-        public ICommand GenerateMigrationReportCommand { get; }
-        public ICommand CheckTablesCommand { get; }
+        public ICommand ReplicateToMySQLCommand { get; }
+        public ICommand PreMigrationReportCommand { get; }
+        public ICommand PostMigrationCommand { get; }
         public ICommand TestZanasConnectionCommand { get; }
         public ICommand TestMaliplusConnectionCommand { get; }
 
         public MainWindowViewModel()
         {
-            GenerateMigrationReportCommand = ReactiveCommand.CreateFromTask(GenerateMigrationReport);
+            PreMigrationReportCommand = ReactiveCommand.CreateFromTask(PreMigrationReport);
             CloseCommand = ReactiveCommand.CreateFromTask<object>(tt => CloseSystem(tt));
             MigrateDataCommand = ReactiveCommand.CreateFromTask<object>(tt => MigrateData(tt));
-            MoveToMySQLCommand = ReactiveCommand.CreateFromTask<object>(tt => MoveToMySQL(tt));
-            CheckTablesCommand = ReactiveCommand.CreateFromTask<object>(tt => CheckTables(tt));
+            ReplicateToMySQLCommand = ReactiveCommand.CreateFromTask<object>(tt => ReplicateToMySQL(tt));
+            PostMigrationCommand = ReactiveCommand.CreateFromTask<object>(tt => PostMigration(tt));
             TestZanasConnectionCommand = ReactiveCommand.CreateFromTask<object>(tt => TestZanasConnection(tt));
             TestMaliplusConnectionCommand = ReactiveCommand.CreateFromTask<object>(tt => TestMaliplusConnection(tt));
         }
@@ -29,8 +29,9 @@ namespace ZanasMaliplusDataMigrator.ViewModels
         private async Task TestMaliplusConnection(object tt)
         {
             try 
-            { 
-
+            {
+                await MaliplusConnection.OpenAsync();
+                ShowMessage("Success connected to Maliplus database", "Maliplus Connection Test");
             }
             catch (Exception ex)
             {
@@ -42,7 +43,8 @@ namespace ZanasMaliplusDataMigrator.ViewModels
         {
             try
             {
-
+                await ZanasConnection.OpenAsync();
+                ShowMessage("Success connected to Zanas database", "Zanas Connection Test");
             }
             catch (Exception ex)
             {
@@ -50,7 +52,7 @@ namespace ZanasMaliplusDataMigrator.ViewModels
             }
         }
 
-        private async Task CheckTables(object tt)
+        private async Task PostMigration(object tt)
         {
             try
             {
@@ -62,7 +64,7 @@ namespace ZanasMaliplusDataMigrator.ViewModels
             }
         }
 
-        private async Task MoveToMySQL(object tt)
+        private async Task ReplicateToMySQL(object tt)
         {
             try
             {
@@ -102,17 +104,24 @@ namespace ZanasMaliplusDataMigrator.ViewModels
             }
         }
 
-        private void ShowMessage(string v1, string v2)
+        private void ShowMessage(string message, string title)
         {
-            //throw new NotImplementedException();
+            MessageError = string.Empty;
+            Message= message;
+            MessageTitle = title;   
         }
 
-        private async Task GenerateMigrationReport()
+        private async Task PreMigrationReport()
         {
             try
             {
                 DbServices dbServices = new();
-                var cols = await dbServices.GetColumns(() => this.ZanasConnection, ZanasDbModel.Schema);
+                var zanasDbColumns = await dbServices.GetColumns(() => this.ZanasConnection, ZanasDbModel.Schema);
+                var zanasDbRelationship = await dbServices.GetRelationship(() => this.ZanasConnection, ZanasDbModel.Schema);
+                var maliplusDbColumns = await dbServices.GetColumns(() => this.MaliplusConnection, MaliplusDbModel.Schema);
+                var maliplusDbRelationship = await dbServices.GetRelationship(() => this.MaliplusConnection, MaliplusDbModel.Schema);
+                new MsExcelReportService().GeneratePreMigrationReport(zanasDbColumns.ToArray(), maliplusDbColumns.ToArray(), zanasDbRelationship.ToArray(), maliplusDbRelationship.ToArray());
+                ShowMessage("Successfully generated the report", "Maliplus Report");
             }
             catch (Exception ex)
             {
@@ -122,6 +131,9 @@ namespace ZanasMaliplusDataMigrator.ViewModels
 
         private void ShowError(Exception ex)
         {
+            MessageError = ex.Message;
+            Message = string.Empty;
+            MessageTitle = "An Error";
         }
     }
 }

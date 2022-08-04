@@ -8,7 +8,7 @@ public class MsExcelReportService
 {
     private int currentRow = 3;
 
-    public string GenerateReport(DbColumnModel[] zanasColumns, DbColumnModel[] maliplusColumns, DBRelationship[] relationships)
+    public string GeneratePreMigrationReport(DbColumnModel[] zanasColumns, DbColumnModel[] maliplusColumns, DBRelationship[] zansRelationships, DBRelationship[] maliplusRelationships)
     {
         var (pairs, unMatchedZanasColumns) = new MatchingService().GenerateMatchColumns(zanasColumns, maliplusColumns);
         var grps = pairs

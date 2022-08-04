@@ -3,7 +3,7 @@
         xmlns:vm="using:ZanasMaliplusDataMigrator.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="450" Width="900" Name="MainPage"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="450" Width="900" Height="650" Name="MainPage"
         x:Class="ZanasMaliplusDataMigrator.Views.MainWindow" SystemDecorations="BorderOnly"
         Icon="/Assets/avalonia-logo.ico"
         Title="">
@@ -19,6 +19,12 @@
 			<Setter Property="FontSize" Value="16" />
 			<Setter Property="Padding" Value="10,0,0,0" />
 		</Style>
+		<Style Selector="TextBlock.error">
+			<Setter Property="Foreground" Value="Pink" />
+			<Setter Property="Opacity" Value=".6" />
+			<Setter Property="FontSize" Value="16" />
+			<Setter Property="Padding" Value="10,0,0,0" />
+		</Style>
 		<Style Selector="TextBlock.title">
 			<Setter Property="Foreground" Value="LightBlue" />
 			<Setter Property="Opacity" Value=".8" />
@@ -30,13 +36,13 @@
 			<Setter Property="Opacity" Value=".7" />
 		</Style>
 		<Style Selector="AutoCompleteBox.entryData">
-			<Setter Property="Foreground" Value="LightBlue" />
+			<Setter Property="Foreground" Value="WhiteSmoke" />
 			<Setter Property="FontSize" Value="18" />
 		</Style>
 	</Window.Styles>
 
-	<Grid ColumnDefinitions="*,10,*" RowDefinitions="Auto, *, Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-		<TextBlock Classes="caption title" FontWeight="Bold" Grid.ColumnSpan="3" Text="{Binding Greeting}" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center" />
+	<Grid ColumnDefinitions="*,10,*" RowDefinitions="Auto, Auto, Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+		<TextBlock Classes="caption title" FontWeight="Bold" Grid.ColumnSpan="3" Text="{Binding ApplicationTitle}" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
 		<Grid Grid.Row="1" ColumnDefinitions="Auto, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
 			<Border Margin="5,5,5,-5" BorderBrush="LightBlue" Opacity=".5" BorderThickness="3" CornerRadius="10" Grid.ColumnSpan="100" Grid.RowSpan="10"/>
@@ -81,15 +87,21 @@
 
 		<Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto"  HorizontalAlignment="Center" VerticalAlignment="Stretch" >
 			<Border Margin="5" BorderBrush="LightBlue" Opacity=".5" BorderThickness="3" CornerRadius="10" Grid.ColumnSpan="100" Grid.RowSpan="10"/>
-			<Button Margin="15"  Grid.Row="7" Classes="general" Command="{Binding CheckTablesCommand}" Grid.Column="0" Content="Check Tables" />
+			<Button Margin="15"  Grid.Row="7" Classes="general" Command="{Binding PostMigrationCommand}" Grid.Column="1" Content="Post-Migration Report" />
 
-			<Button Margin="15" Classes="general"  Grid.Row="7" Command="{Binding GenerateMigrationReportCommand}" Grid.Column="1"  Content="Generate Migration Report" />
+			<Button Margin="15" Classes="general"  Grid.Row="7" Command="{Binding PreMigrationReportCommand}" Grid.Column="0"  Content="Pre-Migration Report" />
 
-			<Button Margin="15"  Grid.Row="7" Classes="general" Command="{Binding MoveToMySQLCommand}" Grid.Column="2" Content="Move To MySQL" />
+			<Button Margin="15" Grid.Row="7" Classes="general" Command="{Binding ReplicateToMySQLCommand}" Grid.Column="2" Content="Replicate To MySQL" />
 
 			<Button Margin="15"  Grid.Row="7" Classes="general" Command="{Binding MigrateDataCommand}" Grid.Column="3" Content="Migrate Data" />
 
 			<Button Margin="15" Classes="general" CommandParameter="{Binding #MainPage}" Grid.Row="7" Command="{Binding CloseCommand}" Grid.Column="4" Content="Close" />
+		</Grid>
+
+		<Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" RowDefinitions="Auto,Auto,Auto,Auto,Auto"  HorizontalAlignment="Center" VerticalAlignment="Stretch" >
+			<TextBlock Classes="caption" VerticalAlignment="Top" Margin="10,3" FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" TextDecorations="Underline" Text="{Binding MessageTitle}" Grid.Column="0" Grid.Row="0" />
+			<TextBlock Classes="caption" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Margin="10,3" FontSize="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" Text="{Binding Message}" Grid.Column="0" Grid.Row="1" />
+			<TextBlock TextWrapping="WrapWithOverflow" Classes="error" VerticalAlignment="Top" Margin="10,3" FontSize="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" Text="{Binding MessageError}" Grid.Column="0" Grid.Row="2" />
 		</Grid>
 	</Grid>
 
