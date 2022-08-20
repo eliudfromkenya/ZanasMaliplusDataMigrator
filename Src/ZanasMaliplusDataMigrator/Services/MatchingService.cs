@@ -14,7 +14,7 @@ public class MatchingService
         ComparerByTableNameAndSameColumns(ref columnPairs, zanasColumnModels);
         ComparerTableNameDifferentWithSameColumns(ref columnPairs, zanasColumnModels);
         ComparerByTableNameSameWithSomeSameColumnNames(ref columnPairs, zanasColumnModels);
-        ComparerTableNameDifferentWithSomeSameColumns(ref columnPairs, zanasColumnModels);
+        //ComparerTableNameDifferentWithSomeSameColumns(ref columnPairs, zanasColumnModels);
 
         return (columnPairs.ToArray(), zanasColumnModels
             .Except(columnPairs.Where(v => v.ZanasColumn != null)
@@ -56,7 +56,7 @@ public class MatchingService
                    return new
                    {
                        Pairs = m.ToList(),
-                       Intersects = intersects.Where(c => c.Intersects.Count() > 2).ToArray()
+                       Intersects = intersects.Where(c => c.Intersects.Count() > 5).ToArray()
                    };
                }).Where(c => c.Intersects.Any()).ToList();
 

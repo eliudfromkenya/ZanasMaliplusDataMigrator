@@ -7,7 +7,7 @@ public class DbServices : ReactiveObject
 {
     public async Task<List<DBRelationship>> GetRelationship(Func<IBM.Data.DB2.Core.DB2Connection> getCon, string? schema)
     {
-        return null;
+        return new List<DBRelationship>();
     }
     public async Task<List<DbColumnModel>> GetColumns(Func<IBM.Data.DB2.Core.DB2Connection> getCon, string? schema)
     {

@@ -4,7 +4,7 @@ namespace ZanasMaliplusDataMigrator.ViewModels;
 
 public class ViewModelBase : ReactiveObject
 {
-    private DBModel maliplusDbModel = new() { Database = "KfaMain", Host = "192.168.1.239", Password = "HQisd2022", Port = "52232", Schema = "kfaltd", User = "kfaltd" };
+    private DBModel maliplusDbModel = new() { Database = "Test", Host = "192.168.1.239", Password = "HQisd2022", Port = "52232", Schema = "KFALTD", User = "kfaltd" };
     private DBModel zanasDbModel = new() { Database = "MOISB", Host = "192.168.1.10", Password = "Pa55word", Port = "50000", Schema = "ZANAS", User = "maliplus" };
     private string? message;
     private string? messageError;

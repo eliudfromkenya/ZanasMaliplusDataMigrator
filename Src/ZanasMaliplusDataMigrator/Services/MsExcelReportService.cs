@@ -8,7 +8,7 @@ public class MsExcelReportService
 {
     private int currentRow = 3;
 
-    public string GeneratePreMigrationReport(DbColumnModel[] zanasColumns, DbColumnModel[] maliplusColumns, DBRelationship[] zansRelationships, DBRelationship[] maliplusRelationships)
+    public string GeneratePreMigrationReport( DbColumnModel[] maliplusColumns,DbColumnModel[] zanasColumns, DBRelationship[] maliplusRelationships, DBRelationship[] zansRelationships)
     {
         var (pairs, unMatchedZanasColumns) = new MatchingService().GenerateMatchColumns(zanasColumns, maliplusColumns);
         var grps = pairs
@@ -81,22 +81,22 @@ public class MsExcelReportService
             range.Style.Font.UnderLine = true;
             range.Style.Font.Size = 14;
             range.Merge = true;
-            range.Value = "Maliplus Table";
+            range.Value = "Zanas Table";
 
             range = sheet.Cells[currentRow, 4, currentRow, 7];
             range.Style.Font.Color.SetColor(Color.RebeccaPurple);
             range.Style.Font.UnderLine = true;
             range.Style.Font.Size = 14;
             range.Merge = true;
-            range.Value = "Corresponding Zanas Tables";
+            range.Value = "Corresponding Maliplus Tables";
             currentRow++;
 
             sheet.Cells[currentRow, 1].Value = "Column Name";
             sheet.Cells[currentRow, 2].Value = "Is Primary Key";
             sheet.Cells[currentRow, 3].Value = "Data Type";
 
-            sheet.Cells[currentRow, 4].Value = "Zanas Table";
-            sheet.Cells[currentRow, 5].Value = "Zanas Column";
+            sheet.Cells[currentRow, 4].Value = "Maliplus Table";
+            sheet.Cells[currentRow, 5].Value = "Maliplus Column";
             sheet.Cells[currentRow, 6].Value = "Is Primary Key";
             sheet.Cells[currentRow, 7].Value = "Data Type";
 
@@ -184,7 +184,7 @@ public class MsExcelReportService
     private void AddZanasColumns(MatchingService.ColumnPair?[] pairs, DbColumnModel?[] unMatchedZanasColumns, ExcelPackage excelPackage)
     {
         currentRow = 3;
-        var sheet = excelPackage.Workbook.Worksheets.Add("Zanas Table Information");
+        var sheet = excelPackage.Workbook.Worksheets.Add("Maliplus Table Information");
         var allZanasCols = pairs.Where(x => x?.ZanasColumn != null)
             .Select(x => x?.ZanasColumn)
             .Concat(unMatchedZanasColumns)
@@ -199,7 +199,7 @@ public class MsExcelReportService
               Columns = c.ToList()
           }).ToList();
         sheet.Cells["A1:F1"].Merge = true;
-        sheet.Cells["A1"].Value = "Zanas Table Information";
+        sheet.Cells["A1"].Value = "Maliplus Table Information";
         sheet.Row(1).Height = 20;
         sheet.Row(1).Style.Font.Size = 20;
         sheet.Row(1).Style.Font.Color.SetColor(Color.Purple);
@@ -255,7 +255,7 @@ public class MsExcelReportService
     private void AddMaliplusColumns(MatchingService.ColumnPair?[] pairs, ExcelPackage excelPackage)
     {
         currentRow = 3;
-        var sheet = excelPackage.Workbook.Worksheets.Add("Maliplus Table Information");
+        var sheet = excelPackage.Workbook.Worksheets.Add("Zanas Table Information");
         var grps = pairs
           .OrderBy(x => x?.MaliplusColumn?.TableName)
           .GroupBy(x => x?.MaliplusColumn?.TableName)
@@ -265,7 +265,7 @@ public class MsExcelReportService
               Columns = c.ToList()
           }).ToList();
         sheet.Cells["A1:F1"].Merge = true;
-        sheet.Cells["A1"].Value = "MaliPlus Table Information";
+        sheet.Cells["A1"].Value = "Zanas Table Information";
         sheet.Row(1).Height = 20;
         sheet.Row(1).Style.Font.Size = 20;
         sheet.Row(1).Style.Font.Color.SetColor(Color.Purple);
