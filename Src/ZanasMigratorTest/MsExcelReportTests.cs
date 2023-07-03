@@ -16,7 +16,7 @@ public class MsExcelReportTests
         ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
         MsExcelReportService service = new();
 
-        var path = service.GenerateReport(TestData.ZanasColumns().ToArray(), TestData.MaliplusColumns().ToArray(), Array.Empty<DBRelationship>());
+        var path = service.GeneratePreMigrationReport(TestData.ZanasColumns().ToArray(), TestData.MaliplusColumns().ToArray(), Array.Empty<DBRelationship>());
 
         Assert.IsNotEmpty(path);
     }
